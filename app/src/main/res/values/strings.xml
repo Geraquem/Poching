@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">pochounter</string>
+    <string name="content_description">image</string>
+
+    <!-- ADS -->
+
+    <!-- ERROR -->
+    <string name="sww">Vaya, algo ha salido mal</string>
+    <string name="error_title">Ha ocurrido un problema</string>
+    <string name="error_description">Inténtalo de nuevo más tarde</string>
+    <string name="error_btn">Aceptar</string>
 </resources>
