@@ -5,19 +5,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmfsin.pochounter.base.BaseFragment
 import com.mmfsin.pochounter.databinding.FragmentMenuBinding
+import com.mmfsin.pochounter.domain.models.Room
+import com.mmfsin.pochounter.presentation.menu.adapter.RoomsAdapter
 import com.mmfsin.pochounter.presentation.menu.dialogs.CreateRoomDialog
+import com.mmfsin.pochounter.presentation.menu.interfaces.IRoomListener
 import com.mmfsin.pochounter.presentation.utils.showErrorDialog
 import com.mmfsin.pochounter.presentation.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>() {
+class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomListener {
 
     override val viewModel: MenuViewModel by viewModels()
     private lateinit var mContext: Context
+
+    private var roomsAdapter: RoomsAdapter? = null
 
     override fun inflateView(
         inflater: LayoutInflater, container: ViewGroup?
@@ -25,7 +32,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        navigateToOffline()
+        viewModel.getRooms()
     }
 
     override fun setUI() {
@@ -43,24 +50,33 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>() {
     override fun observe() {
         viewModel.event.observe(this) { event ->
             when (event) {
-                is MenuEvent.RoomCreated -> navigateToRoom(event.roomName)
+                is MenuEvent.GetRooms -> setUpRooms(event.rooms)
+                is MenuEvent.RoomCreated -> navigateToRoom(event.room)
                 is MenuEvent.SWW -> error()
             }
         }
     }
 
-    private fun navigateToRoom(roomName: String) {
-//        (activity as MainActivity).openBedRockActivity(
-//            navGraph = R.navigation.nav_graph_online,
-//            booleanArgs = creator,
-//            strArgs = roomCode,
-//        )
+    private fun setUpRooms(rooms: List<Room>) {
+        binding.apply {
+            if (roomsAdapter == null) {
+                rvRooms.apply {
+                    layoutManager = LinearLayoutManager(activity?.applicationContext)
+                    roomsAdapter = RoomsAdapter(rooms, this@MenuFragment)
+                    adapter = roomsAdapter
+                }
+            } else {
+                roomsAdapter?.notifyItemInserted(rooms.size - 1)
+            }
+        }
     }
 
-    private fun navigateToOffline() {
-//        if (activity is MainActivity) {
-//            (activity as MainActivity).openBedRockActivity(navGraph = R.navigation.nav_graph_offline)
-//        }
+    override fun clickRoom(room: Room) {
+        navigateToRoom(room)
+    }
+
+    private fun navigateToRoom(room: Room) {
+        Toast.makeText(mContext, room.id, Toast.LENGTH_SHORT).show()
     }
 
     private fun error() = activity?.showErrorDialog()

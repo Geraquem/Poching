@@ -6,6 +6,8 @@
     <dimen name="medium">16dp</dimen>
     <dimen name="large_small">20dp</dimen>
     <dimen name="large">24dp</dimen>
+    <dimen name="xlarge">32dp</dimen>
+    <dimen name="xxlarge">42dp</dimen>
 
     <dimen name="elevation">4dp</dimen>
     <dimen name="card_radius">64dp</dimen>

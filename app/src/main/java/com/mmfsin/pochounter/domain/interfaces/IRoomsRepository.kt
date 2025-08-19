@@ -1,5 +1,8 @@
 package com.mmfsin.pochounter.domain.interfaces
 
+import com.mmfsin.pochounter.domain.models.Room
+
 interface IRoomsRepository {
-    suspend fun createRoom(roomName: String)
+    suspend fun getRooms(): List<Room>
+    suspend fun createRoom(roomName: String): Room
 }

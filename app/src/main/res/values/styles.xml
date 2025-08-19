@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="SmallTextView">
         <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:textSize">12sp</item>
@@ -39,6 +40,11 @@
     <style name="circular_image">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="scroll_no_effects">
+        <item name="android:scrollbars">none</item>
+        <item name="android:overScrollMode">never</item>
     </style>
 
     <style name="slide_up_down_dialog">

@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        changeStatusBar(R.color.white)
+        changeStatusBar(R.color.light_grey)
     }
 
     private fun changeStatusBar(color: Int) {

@@ -9,4 +9,8 @@
     <string name="error_title">Ha ocurrido un problema</string>
     <string name="error_description">Inténtalo de nuevo más tarde</string>
     <string name="error_btn">Aceptar</string>
+
+    <!-- ROOMS -->
+    <string name="no_players">No hay jugadores</string>
+
 </resources>
