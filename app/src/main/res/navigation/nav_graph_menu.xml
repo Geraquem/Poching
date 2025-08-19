@@ -9,6 +9,20 @@
         android:id="@+id/menuFragment"
         android:name="com.mmfsin.pochounter.presentation.menu.MenuFragment"
         android:label="menuFragment"
-        tools:layout="@layout/fragment_menu" />
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/action_menuFragment_to_roomFragment"
+            app:destination="@id/roomFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/roomFragment"
+        android:name="com.mmfsin.pochounter.presentation.room.RoomFragment"
+        android:label="roomFragment"
+        tools:layout="@layout/fragment_room">
+        <argument
+            android:name="roomId"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

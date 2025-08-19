@@ -11,10 +11,10 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.mmfsin.pochounter.R
 import com.mmfsin.pochounter.base.bedrock.BedRockActivity
 import com.mmfsin.pochounter.databinding.ActivityMainBinding
-import com.mmfsin.pochounter.presentation.utils.BEDROCK_BOOLEAN_ARGS
-import com.mmfsin.pochounter.presentation.utils.BEDROCK_PARCELABLE_ARGS
-import com.mmfsin.pochounter.presentation.utils.BEDROCK_STR_ARGS
-import com.mmfsin.pochounter.presentation.utils.ROOT_ACTIVITY_NAV_GRAPH
+import com.mmfsin.pochounter.utils.BEDROCK_BOOLEAN_ARGS
+import com.mmfsin.pochounter.utils.BEDROCK_PARCELABLE_ARGS
+import com.mmfsin.pochounter.utils.BEDROCK_STR_ARGS
+import com.mmfsin.pochounter.utils.ROOT_ACTIVITY_NAV_GRAPH
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        changeStatusBar(R.color.light_grey)
+        changeStatusBar(R.color.white)
     }
 
     private fun changeStatusBar(color: Int) {

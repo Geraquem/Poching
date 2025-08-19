@@ -10,7 +10,11 @@
     <string name="error_description">Inténtalo de nuevo más tarde</string>
     <string name="error_btn">Aceptar</string>
 
+    <!-- MENU -->
+    <string name="create_room">Nuevo juego</string>"
+
     <!-- ROOMS -->
     <string name="no_players">No hay jugadores</string>
+    <string name="add_player">Añadir jugador</string>
 
 </resources>

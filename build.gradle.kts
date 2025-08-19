@@ -6,4 +6,5 @@ plugins {
 
     id("com.google.dagger.hilt.android") version "2.47" apply false
     id("io.realm.kotlin") version "3.0.0"
+    id("androidx.navigation.safeargs.kotlin") version "2.7.2" apply false
 }

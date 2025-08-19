@@ -4,8 +4,8 @@ import com.mmfsin.pochounter.domain.interfaces.IRoomsRepository
 import com.mmfsin.pochounter.domain.models.Room
 import javax.inject.Inject
 
-class CreateRoomUseCase @Inject constructor(
+class GetRoomDataUseCase @Inject constructor(
     private val repository: IRoomsRepository
 ) {
-    suspend fun execute(roomName: String): String = repository.createRoom(roomName)
+    suspend fun execute(roomId: String): Room? = repository.getRoomData(roomId)
 }

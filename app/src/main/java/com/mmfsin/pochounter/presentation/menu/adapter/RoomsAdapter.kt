@@ -40,7 +40,7 @@ class RoomsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val room = rooms[position]
         holder.bind(room)
-        holder.itemView.rootView.setOnClickListener { listener.clickRoom(room) }
+        holder.itemView.rootView.setOnClickListener { listener.clickRoom(room.id) }
     }
 
     override fun getItemCount(): Int = rooms.size

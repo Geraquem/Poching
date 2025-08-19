@@ -1,21 +1,20 @@
 package com.mmfsin.pochounter.presentation.menu
 
 import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmfsin.pochounter.base.BaseFragment
 import com.mmfsin.pochounter.databinding.FragmentMenuBinding
 import com.mmfsin.pochounter.domain.models.Room
+import com.mmfsin.pochounter.presentation.menu.MenuFragmentDirections.Companion.actionMenuFragmentToRoomFragment
 import com.mmfsin.pochounter.presentation.menu.adapter.RoomsAdapter
 import com.mmfsin.pochounter.presentation.menu.dialogs.CreateRoomDialog
 import com.mmfsin.pochounter.presentation.menu.interfaces.IRoomListener
-import com.mmfsin.pochounter.presentation.utils.showErrorDialog
-import com.mmfsin.pochounter.presentation.utils.showFragmentDialog
+import com.mmfsin.pochounter.utils.showErrorDialog
+import com.mmfsin.pochounter.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,14 +23,12 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
     override val viewModel: MenuViewModel by viewModels()
     private lateinit var mContext: Context
 
-    private var roomsAdapter: RoomsAdapter? = null
-
     override fun inflateView(
         inflater: LayoutInflater, container: ViewGroup?
     ) = FragmentMenuBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onResume() {
+        super.onResume()
         viewModel.getRooms()
     }
 
@@ -51,7 +48,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
         viewModel.event.observe(this) { event ->
             when (event) {
                 is MenuEvent.GetRooms -> setUpRooms(event.rooms)
-                is MenuEvent.RoomCreated -> navigateToRoom(event.room)
+                is MenuEvent.RoomCreated -> navigateToRoom(event.roomId)
                 is MenuEvent.SWW -> error()
             }
         }
@@ -59,27 +56,20 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
 
     private fun setUpRooms(rooms: List<Room>) {
         binding.apply {
-            if (roomsAdapter == null) {
-                rvRooms.apply {
-                    layoutManager = LinearLayoutManager(activity?.applicationContext)
-                    roomsAdapter = RoomsAdapter(rooms, this@MenuFragment)
-                    adapter = roomsAdapter
-                }
-            } else {
-                roomsAdapter?.notifyItemInserted(rooms.size - 1)
+            rvRooms.apply {
+                layoutManager = LinearLayoutManager(activity?.applicationContext)
+                adapter = RoomsAdapter(rooms, this@MenuFragment)
             }
         }
     }
 
-    override fun clickRoom(room: Room) {
-        navigateToRoom(room)
+    override fun clickRoom(roomId: String) = navigateToRoom(roomId)
+
+    private fun navigateToRoom(roomId: String) {
+        findNavController().navigate(actionMenuFragmentToRoomFragment(roomId))
     }
 
-    private fun navigateToRoom(room: Room) {
-        Toast.makeText(mContext, room.id, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun error() = activity?.showErrorDialog()
+    private fun error() = activity?.showErrorDialog(goBack = true)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

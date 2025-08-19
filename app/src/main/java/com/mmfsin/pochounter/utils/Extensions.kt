@@ -1,4 +1,4 @@
-package com.mmfsin.pochounter.presentation.utils
+package com.mmfsin.pochounter.utils
 
 import android.os.CountDownTimer
 import android.view.View

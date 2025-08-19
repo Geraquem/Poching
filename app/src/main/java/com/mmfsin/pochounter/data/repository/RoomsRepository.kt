@@ -7,6 +7,7 @@ import com.mmfsin.pochounter.data.models.RoomDTO
 import com.mmfsin.pochounter.domain.interfaces.IRealmDatabase
 import com.mmfsin.pochounter.domain.interfaces.IRoomsRepository
 import com.mmfsin.pochounter.domain.models.Room
+import com.mmfsin.pochounter.utils.ID
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.realm.kotlin.ext.query
 import java.util.UUID
@@ -22,7 +23,7 @@ class RoomsRepository @Inject constructor(
         return rooms.toRoomList()
     }
 
-    override suspend fun createRoom(roomName: String): Room {
+    override suspend fun createRoom(roomName: String): String {
         val room = RoomDTO().apply {
             id = UUID.randomUUID().toString()
             name = roomName
@@ -30,6 +31,11 @@ class RoomsRepository @Inject constructor(
         }
 
         realmDatabase.addObject { room }
-        return room.toRoom()
+        return room.id
+    }
+
+    override suspend fun getRoomData(roomId: String): Room? {
+        val room = realmDatabase.getObjectFromRealm(RoomDTO::class, ID, roomId)
+        return room?.toRoom()
     }
 }

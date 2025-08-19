@@ -8,8 +8,8 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.fragment.NavHostFragment
 import com.mmfsin.pochounter.R
 import com.mmfsin.pochounter.databinding.ActivityBedrockBinding
-import com.mmfsin.pochounter.presentation.utils.ROOT_ACTIVITY_NAV_GRAPH
-import com.mmfsin.pochounter.presentation.utils.showErrorDialog
+import com.mmfsin.pochounter.utils.ROOT_ACTIVITY_NAV_GRAPH
+import com.mmfsin.pochounter.utils.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

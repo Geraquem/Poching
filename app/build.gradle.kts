@@ -5,6 +5,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
     id("io.realm.kotlin")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -73,6 +74,10 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
     implementation("androidx.annotation:annotation:1.7.1")
+
+    //Navigation Directions
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.2")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.2")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
