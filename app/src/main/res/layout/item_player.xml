@@ -16,21 +16,27 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <EditText
             android:id="@+id/tv_name"
             style="@style/BigTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/xsmall"
-            tools:text="Nombre de la sala" />
+            android:autofillHints="name"
+            android:background="@null"
+            android:imeOptions="actionDone"
+            android:inputType="textPersonName"
+            android:maxLength="20"
+            android:singleLine="true"
+            tools:ignore="LabelFor"
+            tools:text="Paquito" />
 
         <TextView
             android:id="@+id/tv_players"
             style="@style/MediumTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:alpha="0.75"
-            tools:text="Paco, Juan, Menganito, Fulano y Cayetano" />
+            android:alpha="0.75" />
 
     </LinearLayout>
 

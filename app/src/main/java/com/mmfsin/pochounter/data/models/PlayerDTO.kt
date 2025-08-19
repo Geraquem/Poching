@@ -6,7 +6,7 @@ import io.realm.kotlin.types.annotations.PrimaryKey
 class PlayerDTO : RealmObject {
     @PrimaryKey
     var id: String = ""
-    var roomID: String = ""
+    var roomId: String = ""
     var name: String = ""
     var points: Int = 0
 }

@@ -1,13 +1,17 @@
 package com.mmfsin.pochounter.data.repository
 
 import android.content.Context
+import com.mmfsin.pochounter.data.mappers.toPlayer
 import com.mmfsin.pochounter.data.mappers.toRoom
 import com.mmfsin.pochounter.data.mappers.toRoomList
+import com.mmfsin.pochounter.data.models.PlayerDTO
 import com.mmfsin.pochounter.data.models.RoomDTO
 import com.mmfsin.pochounter.domain.interfaces.IRealmDatabase
 import com.mmfsin.pochounter.domain.interfaces.IRoomsRepository
+import com.mmfsin.pochounter.domain.models.Player
 import com.mmfsin.pochounter.domain.models.Room
 import com.mmfsin.pochounter.utils.ID
+import com.mmfsin.pochounter.utils.ROOM_ID
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.realm.kotlin.ext.query
 import java.util.UUID
@@ -20,7 +24,8 @@ class RoomsRepository @Inject constructor(
 
     override suspend fun getRooms(): List<Room> {
         val rooms = realmDatabase.getObjectsFromRealm { query<RoomDTO>().find() }
-        return rooms.toRoomList()
+        /** TO DOOOOO */
+        return rooms.toRoomList(emptyList())
     }
 
     override suspend fun createRoom(roomName: String): String {
@@ -36,6 +41,23 @@ class RoomsRepository @Inject constructor(
 
     override suspend fun getRoomData(roomId: String): Room? {
         val room = realmDatabase.getObjectFromRealm(RoomDTO::class, ID, roomId)
-        return room?.toRoom()
+        return room?.toRoom(getPlayers(roomId))
+    }
+
+    private fun getPlayers(roomId: String): List<PlayerDTO> {
+        return realmDatabase.getObjectsFromRealm {
+            query<PlayerDTO>("$ROOM_ID == $0", roomId).find()
+        }
+    }
+
+    override suspend fun addNewPlayer(roomId: String): Player {
+        val newPlayer = PlayerDTO().apply {
+            id = UUID.randomUUID().toString()
+            this.roomId = roomId
+            name = "Player"
+            points = 0
+        }
+        realmDatabase.addObject { newPlayer }
+        return newPlayer.toPlayer()
     }
 }

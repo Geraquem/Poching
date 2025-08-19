@@ -14,7 +14,11 @@
     <string name="create_room">Nuevo juego</string>"
 
     <!-- ROOMS -->
+    <string name="room_name_title">Nombre del juego:</string>
+    <string name="room_name">Nombre</string>
+    <string name="room_players_title">Jugadores (%s):</string>
     <string name="no_players">No hay jugadores</string>
     <string name="add_player">Añadir jugador</string>
+    <string name="ready">Listo</string>
 
 </resources>
