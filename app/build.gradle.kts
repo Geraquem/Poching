@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
+    id("io.realm.kotlin")
 }
 
 android {
@@ -57,6 +58,9 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
 
     implementation(libs.google.material)
+
+    //Realm
+    implementation("io.realm.kotlin:library-base:3.0.0")
 
     //Hilt
     implementation("com.google.dagger:hilt-android:2.47")

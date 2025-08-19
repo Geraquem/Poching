@@ -5,4 +5,5 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
 
     id("com.google.dagger.hilt.android") version "2.47" apply false
+    id("io.realm.kotlin") version "3.0.0"
 }

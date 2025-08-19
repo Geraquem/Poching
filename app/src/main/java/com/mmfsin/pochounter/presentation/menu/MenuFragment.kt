@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.mmfsin.pochounter.base.BaseFragment
 import com.mmfsin.pochounter.databinding.FragmentMenuBinding
+import com.mmfsin.pochounter.presentation.menu.dialogs.CreateRoomDialog
 import com.mmfsin.pochounter.presentation.utils.showErrorDialog
+import com.mmfsin.pochounter.presentation.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,28 +35,21 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>() {
     override fun setListeners() {
         binding.apply {
             btnCreateRoom.setOnClickListener {
-//                activity?.showFragmentDialog(CreateRoomDialog { viewModel.createRoom(it) })
+                activity?.showFragmentDialog(CreateRoomDialog { viewModel.createRoom(it) })
             }
-
-            btnJoinRoom.setOnClickListener {
-//                activity?.showFragmentDialog(JoinRoomDialog { viewModel.joinRoom(it) })
-            }
-
-            btnOffline.setOnClickListener { navigateToOffline() }
         }
     }
 
     override fun observe() {
         viewModel.event.observe(this) { event ->
             when (event) {
-                is MenuEvent.RoomCreated -> navigateToRoom(creator = true, event.roomId)
-                is MenuEvent.JoinedRoom -> navigateToRoom(creator = false, event.roomId)
+                is MenuEvent.RoomCreated -> navigateToRoom(event.roomName)
                 is MenuEvent.SWW -> error()
             }
         }
     }
 
-    private fun navigateToRoom(creator: Boolean, roomCode: String) {
+    private fun navigateToRoom(roomName: String) {
 //        (activity as MainActivity).openBedRockActivity(
 //            navGraph = R.navigation.nav_graph_online,
 //            booleanArgs = creator,
