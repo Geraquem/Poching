@@ -5,6 +5,9 @@ import android.view.View
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import com.mmfsin.pochounter.base.dialog.ErrorDialog
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 fun FragmentActivity.showErrorDialog(goBack: Boolean = false) {
     val dialog = ErrorDialog(goBack)
@@ -36,4 +39,13 @@ fun countDown(millis: Long, action: () -> Unit) {
             action()
         }
     }.start()
+}
+
+fun Date.toSpanishDate(): String {
+    val formatter = SimpleDateFormat("dd 'de' MMMM 'de' yyyy", Locale("es", "ES"))
+    val raw = formatter.format(this)
+    return raw.replaceFirstChar {
+        if (it.isLowerCase()) it.titlecase(Locale("es", "ES"))
+        else it.toString()
+    }
 }

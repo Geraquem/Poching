@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mmfsin.pochounter.R
-import com.mmfsin.pochounter.databinding.ItemRoomBinding
+import com.mmfsin.pochounter.databinding.ItemPlayerBinding
 import com.mmfsin.pochounter.domain.models.Player
 
 class PlayersAdapter(
@@ -14,11 +14,11 @@ class PlayersAdapter(
 ) : RecyclerView.Adapter<PlayersAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val binding = ItemRoomBinding.bind(view)
+        val binding = ItemPlayerBinding.bind(view)
         val c: Context = binding.root.context
         fun bind(player: Player) {
             binding.apply {
-                tvName.text = player.name
+                tvName.setText(player.name)
             }
         }
     }

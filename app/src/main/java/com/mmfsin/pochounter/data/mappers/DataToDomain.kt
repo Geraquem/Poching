@@ -25,13 +25,3 @@ fun RoomDTO.toRoom(players: List<PlayerDTO>) = Room(
 )
 
 fun List<RoomDTO>.toRoomList(players: List<PlayerDTO>) = this.map { it.toRoom(players) }
-
-fun createRoomDTO(r: Room) = RoomDTO().apply {
-    id = r.id
-    name = r.name
-    totalPlayers = r.totalPlayers
-    pointsOkBase = r.points.pointsOkBase
-    pointsOkExtra = r.points.pointsOkExtra
-    pointsKo = r.points.pointsKo
-    creation = r.creation
-}

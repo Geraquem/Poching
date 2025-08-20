@@ -12,7 +12,7 @@
 
     <!-- MENU -->
     <string name="create_room">Nuevo juego</string>"
-    <string name="room_creation_date">Creada el %s</string>"
+    <string name="room_creation_date">Creado el %s</string>"
 
     <!-- ROOMS -->
     <string name="room_name_title">Nombre del juego:</string>

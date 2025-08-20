@@ -23,6 +23,8 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
     override val viewModel: MenuViewModel by viewModels()
     private lateinit var mContext: Context
 
+    private var moveOn: Boolean = true
+
     override fun inflateView(
         inflater: LayoutInflater, container: ViewGroup?
     ) = FragmentMenuBinding.inflate(inflater, container, false)
@@ -50,7 +52,11 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
         viewModel.event.observe(this) { event ->
             when (event) {
                 is MenuEvent.GetRooms -> setUpRooms(event.rooms)
-                is MenuEvent.RoomCreated -> navigateToRoom(event.roomId)
+                is MenuEvent.RoomCreated -> {
+                    moveOn = true
+                    navigateToRoom(event.roomId)
+                }
+
                 is MenuEvent.SWW -> error()
             }
         }
@@ -65,10 +71,16 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
         }
     }
 
-    override fun clickRoom(roomId: String) = navigateToRoom(roomId)
+    override fun clickRoom(roomId: String) {
+        moveOn = true
+        navigateToRoom(roomId)
+    }
 
     private fun navigateToRoom(roomId: String) {
-        findNavController().navigate(actionMenuFragmentToRoomFragment(roomId))
+        if (moveOn) {
+            moveOn = false
+            findNavController().navigate(actionMenuFragmentToRoomFragment(roomId))
+        }
     }
 
     private fun error() = activity?.showErrorDialog(goBack = true)

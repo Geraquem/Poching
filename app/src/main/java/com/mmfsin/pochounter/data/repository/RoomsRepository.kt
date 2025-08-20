@@ -1,6 +1,7 @@
 package com.mmfsin.pochounter.data.repository
 
 import android.content.Context
+import com.mmfsin.pochounter.data.mappers.createPlayerDTO
 import com.mmfsin.pochounter.data.mappers.createRoomDTO
 import com.mmfsin.pochounter.data.mappers.toPlayer
 import com.mmfsin.pochounter.data.mappers.toRoom
@@ -33,6 +34,10 @@ class RoomsRepository @Inject constructor(
     }
 
     override suspend fun createRoom(room: Room) {
+        room.players.forEach { player ->
+            realmDatabase.addObject { createPlayerDTO(player) }
+        }
+
         val roomDTO = createRoomDTO(room)
         realmDatabase.addObject { roomDTO }
     }
