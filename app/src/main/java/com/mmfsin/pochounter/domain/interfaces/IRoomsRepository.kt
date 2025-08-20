@@ -6,6 +6,7 @@ import com.mmfsin.pochounter.domain.models.Room
 interface IRoomsRepository {
     suspend fun getRooms(): List<Room>
     suspend fun createRoom(room: Room)
+    suspend fun deleteRoom(roomId: String)
     suspend fun getRoomData(roomId: String): Room?
 
     suspend fun addNewPlayer(roomId: String): Player

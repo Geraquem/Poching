@@ -42,6 +42,14 @@ class RoomsRepository @Inject constructor(
         realmDatabase.addObject { roomDTO }
     }
 
+    override suspend fun deleteRoom(roomId: String) {
+        realmDatabase.deleteObject(RoomDTO::class, ID, roomId)
+        val players = getPlayers(roomId)
+        players.forEach { player ->
+            realmDatabase.deleteObject(PlayerDTO::class, ID, player.id)
+        }
+    }
+
     override suspend fun getRoomData(roomId: String): Room? {
         val room = realmDatabase.getObjectFromRealm(RoomDTO::class, ID, roomId)
         return room?.toRoom(getPlayers(roomId))

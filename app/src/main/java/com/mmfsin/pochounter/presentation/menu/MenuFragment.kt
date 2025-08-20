@@ -12,6 +12,7 @@ import com.mmfsin.pochounter.domain.models.Room
 import com.mmfsin.pochounter.presentation.menu.MenuFragmentDirections.Companion.actionMenuFragmentToRoomFragment
 import com.mmfsin.pochounter.presentation.menu.adapter.RoomsAdapter
 import com.mmfsin.pochounter.presentation.menu.dialogs.CreateRoomDialog
+import com.mmfsin.pochounter.presentation.menu.dialogs.DeleteRoomDialog
 import com.mmfsin.pochounter.presentation.menu.interfaces.IRoomListener
 import com.mmfsin.pochounter.utils.showErrorDialog
 import com.mmfsin.pochounter.utils.showFragmentDialog
@@ -24,6 +25,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
     private lateinit var mContext: Context
 
     private var moveOn: Boolean = true
+    private var roomsAdapter: RoomsAdapter? = null
 
     override fun inflateView(
         inflater: LayoutInflater, container: ViewGroup?
@@ -53,10 +55,11 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
             when (event) {
                 is MenuEvent.GetRooms -> setUpRooms(event.rooms)
                 is MenuEvent.RoomCreated -> {
-                    moveOn = true
+                    viewModel.getRooms()
                     navigateToRoom(event.roomId)
                 }
 
+                is MenuEvent.RoomDeleted -> roomsAdapter?.removeItem(event.position)
                 is MenuEvent.SWW -> error()
             }
         }
@@ -66,7 +69,8 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
         binding.apply {
             rvRooms.apply {
                 layoutManager = LinearLayoutManager(activity?.applicationContext)
-                adapter = RoomsAdapter(rooms, this@MenuFragment)
+                roomsAdapter = RoomsAdapter(rooms.toMutableList(), this@MenuFragment)
+                adapter = roomsAdapter
             }
         }
     }
@@ -74,6 +78,12 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
     override fun clickRoom(roomId: String) {
         moveOn = true
         navigateToRoom(roomId)
+    }
+
+    override fun longClickRoom(roomId: String, position: Int) {
+        activity?.showFragmentDialog(DeleteRoomDialog {
+            viewModel.deleteRoom(roomId, position)
+        })
     }
 
     private fun navigateToRoom(roomId: String) {

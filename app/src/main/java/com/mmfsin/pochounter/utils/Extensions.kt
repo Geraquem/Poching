@@ -49,3 +49,12 @@ fun Date.toSpanishDate(): String {
         else it.toString()
     }
 }
+
+fun formatList(items: List<String>): String {
+    return when (items.size) {
+        0 -> ""
+        1 -> items[0]
+        2 -> items.joinToString(" y ")
+        else -> items.dropLast(1).joinToString(", ") + " y " + items.last()
+    }
+}

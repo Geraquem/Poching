@@ -23,6 +23,9 @@
     <string name="room_points_ok_base">Por acertar de base:</string>
     <string name="room_points_ok_extra">Por acierto extra:</string>
 
+    <string name="room_delete_title">Borrar juego</string>
+    <string name="room_delete_btn">Borrar</string>
+
     <string name="no_players">No hay jugadores</string>
     <string name="add_player">Añadir jugador</string>
     <string name="player_default">Jugador sin nombre</string>
