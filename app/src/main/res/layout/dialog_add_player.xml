@@ -54,47 +54,17 @@
             tools:text="Paquito" />
 
         <TextView
-            android:id="@+id/btn_edit_name"
+            android:id="@+id/btn_add"
             style="@style/MediumTextView_Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/medium_small"
             android:background="@drawable/click_effect"
             android:backgroundTint="@color/light_green"
             android:elevation="6dp"
             android:gravity="center"
             android:padding="12dp"
-            android:text="@string/players_edit_name"
-            android:textAllCaps="true" />
-
-        <TextView
-            android:id="@+id/btn_reset_points"
-            style="@style/MediumTextView_Bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/medium_small"
-            android:background="@drawable/click_effect"
-            android:backgroundTint="@color/light_blue"
-            android:elevation="6dp"
-            android:gravity="center"
-            android:padding="12dp"
-            android:text="@string/players_reset_points"
-            android:textAllCaps="true" />
-
-        <TextView
-            android:id="@+id/btn_delete"
-            style="@style/MediumTextView_Bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/click_effect"
-            android:backgroundTint="@color/light_red"
-            android:elevation="6dp"
-            android:gravity="center"
-            android:padding="12dp"
-            android:text="@string/players_delete"
+            android:text="@string/add_player"
             android:textAllCaps="true" />
 
     </LinearLayout>

@@ -15,6 +15,7 @@ import com.mmfsin.pochounter.databinding.FragmentRoomBinding
 import com.mmfsin.pochounter.domain.models.Player
 import com.mmfsin.pochounter.domain.models.Room
 import com.mmfsin.pochounter.presentation.room.adapter.PlayersAdapter
+import com.mmfsin.pochounter.presentation.room.dialogs.AddPlayerDialog
 import com.mmfsin.pochounter.presentation.room.dialogs.PlayerSettingsDialog
 import com.mmfsin.pochounter.presentation.room.interfaces.IPlayersListener
 import com.mmfsin.pochounter.utils.ROOM_ID
@@ -58,7 +59,11 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
     override fun setListeners() {
         binding.apply {
             toolbar.ivAdd.setOnClickListener {
-//                roomId?.let { id -> viewModel.addNewPlayer(id) }
+                activity?.showFragmentDialog(
+                    AddPlayerDialog { name ->
+                        roomId?.let { id -> viewModel.addNewPlayer(roomId = id, playerName = name) }
+                    }
+                )
             }
         }
     }
@@ -67,12 +72,13 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
         viewModel.event.observe(this) { event ->
             when (event) {
                 is RoomEvent.GetRoom -> setUpRoomData(event.room)
-                is RoomEvent.NewPlayerAdded -> addNewPlayer(event.player)
+                is RoomEvent.NewPlayerAdded -> newPlayerAdded(event.player)
                 is RoomEvent.UpdatedPlayerName -> playersAdapter?.updatePlayerName(
                     event.newName, event.position
                 )
 
                 is RoomEvent.RestartedPlayerPoints -> playersAdapter?.restartPlayerPoints(event.position)
+                is RoomEvent.PlayerDeleted -> playersAdapter?.removePlayer(event.position)
                 is RoomEvent.SWW -> error()
             }
         }
@@ -104,8 +110,8 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
         }
     }
 
-    private fun addNewPlayer(player: Player) {
-//        playersAdapter?.addNewPlayer(player)
+    private fun newPlayerAdded(player: Player) {
+        playersAdapter?.addNewPlayer(player)
     }
 
     override fun updatePoints(playerId: String, points: Int, isError: Boolean) {
@@ -118,7 +124,8 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
         activity?.showFragmentDialog(
             PlayerSettingsDialog(playerName = name,
                 editName = { newName -> viewModel.editPlayerName(playerId, newName, position) },
-                restartPoints = { viewModel.resetPoints(playerId, position) })
+                restartPoints = { viewModel.resetPoints(playerId, position) },
+                deletePlayer = { viewModel.deletePlayer(playerId, position) })
         )
     }
 

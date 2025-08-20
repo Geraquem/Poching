@@ -61,15 +61,19 @@ class RoomsRepository @Inject constructor(
         }
     }
 
-    override suspend fun addNewPlayer(roomId: String): Player {
+    override suspend fun addNewPlayer(roomId: String, playerName: String): Player {
         val newPlayer = PlayerDTO().apply {
             id = UUID.randomUUID().toString()
             this.roomId = roomId
-            name = "Player"
+            name = playerName
             points = 0
         }
         realmDatabase.addObject { newPlayer }
         return newPlayer.toPlayer()
+    }
+
+    override suspend fun deletePlayer(playerId: String) {
+        realmDatabase.deleteObject(PlayerDTO::class, ID, playerId)
     }
 
     override suspend fun updatePlayerPoints(playerId: String, points: Int) {

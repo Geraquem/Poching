@@ -8,5 +8,6 @@ sealed class RoomEvent {
     data class NewPlayerAdded(val player: Player) : RoomEvent()
     data class UpdatedPlayerName(val newName: String, val position: Int) : RoomEvent()
     data class RestartedPlayerPoints(val position: Int) : RoomEvent()
+    data class PlayerDeleted(val position: Int) : RoomEvent()
     data object SWW : RoomEvent()
 }

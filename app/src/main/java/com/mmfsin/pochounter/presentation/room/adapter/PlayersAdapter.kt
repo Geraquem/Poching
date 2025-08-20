@@ -30,7 +30,7 @@ class PlayersAdapter(
                 tvPointsKo.text = "${points.pointsKo}"
 
                 tvPointsOkBaseTwo.text = "${points.pointsOkBase * 2}"
-                tvPointsOkExtraTwo.text = "${points.pointsOkExtra * 2}"
+                tvPointsOkExtraTwo.text = "${points.pointsOkExtra * 3}"
                 tvPointsKoTwo.text = "${points.pointsKo * 2}"
             }
         }
@@ -102,5 +102,13 @@ class PlayersAdapter(
     fun addNewPlayer(player: Player) {
         players.add(player)
         notifyItemInserted(players.size - 1)
+    }
+
+    fun removePlayer(position: Int) {
+        if (position in players.indices) {
+            players.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, players.size)
+        }
     }
 }

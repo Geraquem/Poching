@@ -61,7 +61,7 @@
             android:backgroundTint="@null"
             android:hint="@string/room_name"
             android:imeOptions="actionDone"
-            android:inputType="textPersonName"
+            android:inputType="textCapWords"
             android:maxLines="1"
             android:padding="@dimen/medium_small" />
 

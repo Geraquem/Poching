@@ -2,6 +2,7 @@ package com.mmfsin.pochounter.presentation.room
 
 import com.mmfsin.pochounter.base.BaseViewModel
 import com.mmfsin.pochounter.domain.usecases.AddNewPlayerUseCase
+import com.mmfsin.pochounter.domain.usecases.DeletePlayerUseCase
 import com.mmfsin.pochounter.domain.usecases.GetRoomDataUseCase
 import com.mmfsin.pochounter.domain.usecases.UpdatePlayerNameUseCase
 import com.mmfsin.pochounter.domain.usecases.UpdatePlayerPointsUseCase
@@ -13,7 +14,8 @@ class RoomViewModel @Inject constructor(
     private val getRoomDataUseCase: GetRoomDataUseCase,
     private val addNewPlayerUseCase: AddNewPlayerUseCase,
     private val updatePlayerNameUseCase: UpdatePlayerNameUseCase,
-    private val updatePointsUseCase: UpdatePlayerPointsUseCase
+    private val updatePointsUseCase: UpdatePlayerPointsUseCase,
+    private val deletePlayerUseCase: DeletePlayerUseCase
 ) : BaseViewModel<RoomEvent>() {
 
     fun getRoomData(roomId: String) {
@@ -27,9 +29,9 @@ class RoomViewModel @Inject constructor(
         )
     }
 
-    fun addNewPlayer(roomId: String) {
+    fun addNewPlayer(roomId: String, playerName: String) {
         executeUseCase(
-            { addNewPlayerUseCase.execute(roomId) },
+            { addNewPlayerUseCase.execute(roomId, playerName) },
             { result -> _event.value = RoomEvent.NewPlayerAdded(result) },
             { _event.value = RoomEvent.SWW }
         )
@@ -55,6 +57,14 @@ class RoomViewModel @Inject constructor(
         executeUseCase(
             { updatePointsUseCase.execute(playerId, 0) },
             { _event.value = RoomEvent.RestartedPlayerPoints(position) },
+            { _event.value = RoomEvent.SWW }
+        )
+    }
+
+    fun deletePlayer(playerId: String, position: Int) {
+        executeUseCase(
+            { deletePlayerUseCase.execute(playerId) },
+            { _event.value = RoomEvent.PlayerDeleted(position) },
             { _event.value = RoomEvent.SWW }
         )
     }

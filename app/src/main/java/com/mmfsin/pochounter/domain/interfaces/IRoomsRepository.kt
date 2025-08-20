@@ -9,7 +9,8 @@ interface IRoomsRepository {
     suspend fun deleteRoom(roomId: String)
     suspend fun getRoomData(roomId: String): Room?
 
-    suspend fun addNewPlayer(roomId: String): Player
+    suspend fun addNewPlayer(roomId: String, playerName: String): Player
+    suspend fun deletePlayer(playerId: String)
     suspend fun updatePlayerPoints(playerId: String, points: Int)
     suspend fun updatePlayerName(playerId: String, newName: String)
 }

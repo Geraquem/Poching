@@ -8,7 +8,8 @@ import com.mmfsin.pochounter.databinding.DialogPlayerSettingsBinding
 class PlayerSettingsDialog(
     private val playerName: String,
     private val editName: (newName: String) -> Unit,
-    private val restartPoints: () -> Unit
+    private val restartPoints: () -> Unit,
+    private val deletePlayer: () -> Unit
 ) : BaseDialog<DialogPlayerSettingsBinding>() {
 
     override fun inflateView(inflater: LayoutInflater) =
@@ -30,6 +31,11 @@ class PlayerSettingsDialog(
 
             btnResetPoints.setOnClickListener {
                 restartPoints()
+                dismiss()
+            }
+
+            btnDelete.setOnClickListener {
+                deletePlayer()
                 dismiss()
             }
         }

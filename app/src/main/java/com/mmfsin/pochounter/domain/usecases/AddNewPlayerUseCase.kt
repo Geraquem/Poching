@@ -5,5 +5,6 @@ import com.mmfsin.pochounter.domain.models.Player
 import javax.inject.Inject
 
 class AddNewPlayerUseCase @Inject constructor(private val repository: IRoomsRepository) {
-    suspend fun execute(roomId: String): Player = repository.addNewPlayer(roomId)
+    suspend fun execute(roomId: String, playerName: String): Player =
+        repository.addNewPlayer(roomId, playerName)
 }
