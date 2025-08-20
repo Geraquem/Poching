@@ -1,6 +1,7 @@
 package com.mmfsin.pochounter.presentation.menu
 
 import com.mmfsin.pochounter.base.BaseViewModel
+import com.mmfsin.pochounter.domain.models.Points
 import com.mmfsin.pochounter.domain.usecases.CreateRoomUseCase
 import com.mmfsin.pochounter.domain.usecases.GetRoomsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,9 +21,9 @@ class MenuViewModel @Inject constructor(
         )
     }
 
-    fun createRoom(roomName: String) {
+    fun createRoom(roomName: String, points: Points, players: List<String>) {
         executeUseCase(
-            { createRoomUseCase.execute(roomName) },
+            { createRoomUseCase.execute(roomName, points, players) },
             { result -> _event.value = MenuEvent.RoomCreated(result) },
             { _event.value = MenuEvent.SWW }
         )

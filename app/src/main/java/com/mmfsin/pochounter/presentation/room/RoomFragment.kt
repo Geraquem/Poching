@@ -48,7 +48,7 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>() {
     override fun setListeners() {
         binding.apply {
             btnAddPlayer.setOnClickListener {
-                roomId?.let { id -> viewModel.addNewPlayer(id) }
+//                roomId?.let { id -> viewModel.addNewPlayer(id) }
             }
         }
     }
@@ -83,7 +83,7 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>() {
     }
 
     private fun addNewPlayer(player: Player) {
-        playersAdapter?.addNewPlayer(player)
+//        playersAdapter?.addNewPlayer(player)
     }
 
     private fun error() = activity?.showErrorDialog()

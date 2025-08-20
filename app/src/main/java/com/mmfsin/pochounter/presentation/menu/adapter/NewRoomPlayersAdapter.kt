@@ -53,4 +53,6 @@ class NewRoomPlayersAdapter(
             println(e.message)
         }
     }
+
+    fun getPlayers(): List<String> = players.toList()
 }

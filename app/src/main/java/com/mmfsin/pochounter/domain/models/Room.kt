@@ -4,7 +4,9 @@ data class Room(
     val id: String,
     val name: String,
     val totalPlayers: Int,
-    val players: List<Player>
+    val players: List<Player>,
+    val points: Points,
+    val creation: String,
 )
 
 data class Player(
@@ -12,4 +14,10 @@ data class Player(
     val roomId: String,
     val name: String,
     val points: Int,
+)
+
+data class Points(
+    val pointsOkBase: Int,
+    val pointsOkExtra: Int,
+    val pointsKo: Int,
 )

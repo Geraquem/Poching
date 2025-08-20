@@ -39,7 +39,9 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
     override fun setListeners() {
         binding.apply {
             btnCreateRoom.setOnClickListener {
-                activity?.showFragmentDialog(CreateRoomDialog { viewModel.createRoom(it) })
+                activity?.showFragmentDialog(CreateRoomDialog { name, points, players ->
+                    viewModel.createRoom(name, points, players)
+                })
             }
         }
     }

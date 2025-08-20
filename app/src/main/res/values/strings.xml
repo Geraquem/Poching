@@ -12,13 +12,20 @@
 
     <!-- MENU -->
     <string name="create_room">Nuevo juego</string>"
+    <string name="room_creation_date">Creada el %s</string>"
 
     <!-- ROOMS -->
     <string name="room_name_title">Nombre del juego:</string>
     <string name="room_name">Nombre</string>
-    <string name="room_players_title">Jugadores (%s):</string>
+    <string name="room_players_title">%s Jugadores:</string>
+    <string name="room_points_title">Puntos:</string>
+    <string name="room_points_bad">Por perder:</string>
+    <string name="room_points_ok_base">Por acertar de base:</string>
+    <string name="room_points_ok_extra">Por acierto extra:</string>
+
     <string name="no_players">No hay jugadores</string>
     <string name="add_player">Añadir jugador</string>
+    <string name="player_default">Jugador sin nombre</string>
     <string name="ready">Listo</string>
 
 </resources>

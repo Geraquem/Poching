@@ -22,11 +22,14 @@ class RoomsAdapter(
             binding.apply {
                 tvName.text = room.name
 
-                val players =
-                    if (room.totalPlayers == 0) R.string.no_players else R.string.error_btn
-                tvPlayers.text = c.getString(players)
+                if (room.totalPlayers == 0) tvPlayers.text = c.getString(R.string.no_players)
+                else {
+                    var players = ""
+                    room.players.forEach { players += "${it.name}, " }
+                    tvPlayers.text = players
+                }
 
-                itemView.rootView
+                tvDate.text = c.getString(R.string.room_creation_date, room.creation)
             }
         }
     }

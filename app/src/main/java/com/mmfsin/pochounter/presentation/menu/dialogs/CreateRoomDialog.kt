@@ -7,11 +7,12 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mmfsin.pochounter.R
 import com.mmfsin.pochounter.base.BaseBottomSheet
 import com.mmfsin.pochounter.databinding.DialogCreateRoomBinding
+import com.mmfsin.pochounter.domain.models.Points
 import com.mmfsin.pochounter.presentation.menu.adapter.NewRoomPlayersAdapter
 import com.mmfsin.pochounter.presentation.menu.interfaces.INewPlayerListener
 
 class CreateRoomDialog(
-    private val create: (roomName: String) -> Unit
+    private val create: (roomName: String, points: Points, players: List<String>) -> Unit
 ) : BaseBottomSheet<DialogCreateRoomBinding>(), INewPlayerListener {
 
     private var playersAdapter: NewRoomPlayersAdapter? = null
@@ -34,6 +35,11 @@ class CreateRoomDialog(
     override fun setUI() {
         isCancelable = true
         setPlayers()
+        binding.apply {
+            etPointsOkBase.setText("4")
+            etPointsOkExtra.setText("2")
+            etPointsBad.setText("-2")
+    }
     }
 
     override fun setListeners() {
@@ -44,7 +50,7 @@ class CreateRoomDialog(
             }
 
             btnAccept.setOnClickListener {
-                create(etRoomName.text.toString())
+                createRoom()
                 dismiss()
             }
         }
@@ -72,6 +78,20 @@ class CreateRoomDialog(
             val count = "${playersAdapter?.itemCount}"
             val text = getString(R.string.room_players_title, count)
             binding.tvPlayers.text = text
+        }
+    }
+
+    private fun createRoom() {
+        binding.apply {
+            val name = etRoomName.text.toString()
+            val points = Points(
+                pointsOkBase = etPointsOkBase.text.toString().toInt(),
+                pointsOkExtra = etPointsOkExtra.text.toString().toInt(),
+                pointsKo = etPointsBad.text.toString().toInt()
+            )
+            val players = playersAdapter?.getPlayers() ?: emptyList()
+
+            create(name, points, players)
         }
     }
 }

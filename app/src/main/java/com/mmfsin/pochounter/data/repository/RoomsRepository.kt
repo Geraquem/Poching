@@ -1,9 +1,9 @@
 package com.mmfsin.pochounter.data.repository
 
 import android.content.Context
+import com.mmfsin.pochounter.data.mappers.createRoomDTO
 import com.mmfsin.pochounter.data.mappers.toPlayer
 import com.mmfsin.pochounter.data.mappers.toRoom
-import com.mmfsin.pochounter.data.mappers.toRoomList
 import com.mmfsin.pochounter.data.models.PlayerDTO
 import com.mmfsin.pochounter.data.models.RoomDTO
 import com.mmfsin.pochounter.domain.interfaces.IRealmDatabase
@@ -23,20 +23,18 @@ class RoomsRepository @Inject constructor(
 ) : IRoomsRepository {
 
     override suspend fun getRooms(): List<Room> {
+        val result = mutableListOf<Room>()
         val rooms = realmDatabase.getObjectsFromRealm { query<RoomDTO>().find() }
-        /** TO DOOOOO */
-        return rooms.toRoomList(emptyList())
+        rooms.forEach { room ->
+            val players = getPlayers(room.id)
+            result.add(room.toRoom(players))
+        }
+        return result
     }
 
-    override suspend fun createRoom(roomName: String): String {
-        val room = RoomDTO().apply {
-            id = UUID.randomUUID().toString()
-            name = roomName
-            totalPlayers = 0
-        }
-
-        realmDatabase.addObject { room }
-        return room.id
+    override suspend fun createRoom(room: Room) {
+        val roomDTO = createRoomDTO(room)
+        realmDatabase.addObject { roomDTO }
     }
 
     override suspend fun getRoomData(roomId: String): Room? {
