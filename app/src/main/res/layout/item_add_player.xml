@@ -26,7 +26,7 @@
         android:autofillHints="name"
         android:background="@null"
         android:imeOptions="actionDone"
-        android:inputType="textPersonName"
+        android:inputType="textCapWords"
         android:maxLength="20"
         android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"

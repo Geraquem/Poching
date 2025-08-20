@@ -13,12 +13,13 @@ import com.mmfsin.pochounter.databinding.FragmentRoomBinding
 import com.mmfsin.pochounter.domain.models.Player
 import com.mmfsin.pochounter.domain.models.Room
 import com.mmfsin.pochounter.presentation.room.adapter.PlayersAdapter
+import com.mmfsin.pochounter.presentation.room.interfaces.IPlayersListener
 import com.mmfsin.pochounter.utils.ROOM_ID
 import com.mmfsin.pochounter.utils.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>() {
+class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayersListener {
 
     override val viewModel: RoomViewModel by viewModels()
     private lateinit var mContext: Context
@@ -75,7 +76,7 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>() {
                 players = room.players.toMutableList()
                 rvPlayers.apply {
                     layoutManager = LinearLayoutManager(activity?.applicationContext)
-                    playersAdapter = PlayersAdapter(players)
+                    playersAdapter = PlayersAdapter(players, room.points, this@RoomFragment)
                     adapter = playersAdapter
                 }
             }
@@ -84,6 +85,10 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>() {
 
     private fun addNewPlayer(player: Player) {
 //        playersAdapter?.addNewPlayer(player)
+    }
+
+    override fun updatePoints(playerId: String, points: Int) {
+        viewModel.updatePoints(playerId, points)
     }
 
     private fun error() = activity?.showErrorDialog()

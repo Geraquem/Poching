@@ -10,4 +10,5 @@ interface IRoomsRepository {
     suspend fun getRoomData(roomId: String): Room?
 
     suspend fun addNewPlayer(roomId: String): Player
+    suspend fun updatePlayerPoints(playerId: String, points: Int)
 }

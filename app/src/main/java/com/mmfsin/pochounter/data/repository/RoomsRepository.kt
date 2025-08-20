@@ -71,4 +71,11 @@ class RoomsRepository @Inject constructor(
         realmDatabase.addObject { newPlayer }
         return newPlayer.toPlayer()
     }
+
+    override suspend fun updatePlayerPoints(playerId: String, points: Int) {
+        realmDatabase.write {
+            val player = query<PlayerDTO>("id == $0", playerId).first().find()
+            player?.points = points
+        }
+    }
 }

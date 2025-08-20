@@ -4,39 +4,150 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/medium_small"
+    android:layout_marginBottom="@dimen/medium"
     android:background="@drawable/click_effect"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:elevation="@dimen/elevation"
     android:padding="@dimen/medium">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/tv_name"
-            style="@style/BigTextView"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/xsmall"
-            android:autofillHints="name"
-            android:background="@null"
-            android:imeOptions="actionDone"
-            android:inputType="textPersonName"
-            android:maxLength="20"
-            android:singleLine="true"
-            tools:ignore="LabelFor"
-            tools:text="Paquito" />
+            android:layout_marginBottom="@dimen/medium_small">
 
-        <TextView
-            android:id="@+id/tv_players"
-            style="@style/MediumTextView"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/BigTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/tv_points"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Paquito" />
+
+            <TextView
+                android:id="@+id/tv_points"
+                style="@style/BigTextView_Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/xxsmall"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="79" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alpha="0.75" />
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:id="@+id/ll_points_ko"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@drawable/click_effect"
+                android:backgroundTint="@color/light_red"
+                android:elevation="@dimen/elevation"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/large"
+                android:paddingVertical="@dimen/small">
+
+                <TextView
+                    android:id="@+id/tv_points_ko"
+                    style="@style/BigTextView_Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="-2" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.05" />
+
+            <LinearLayout
+                android:id="@+id/ll_points_ok_extra"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@drawable/click_effect"
+                android:backgroundTint="@color/light_green"
+                android:elevation="@dimen/elevation"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/large"
+                android:paddingVertical="@dimen/small">
+
+                <TextView
+                    style="@style/BigTextView_Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/xxsmall"
+                    android:text="@string/room_points_plus" />
+
+                <TextView
+                    android:id="@+id/tv_points_ok_extra"
+                    style="@style/BigTextView_Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="2" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.05" />
+
+            <LinearLayout
+                android:id="@+id/ll_points_ok_base"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@drawable/click_effect"
+                android:backgroundTint="@color/light_green"
+                android:elevation="@dimen/elevation"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/large"
+                android:paddingVertical="@dimen/small">
+
+                <TextView
+                    style="@style/BigTextView_Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/xxsmall"
+                    android:text="@string/room_points_plus" />
+
+                <TextView
+                    android:id="@+id/tv_points_ok_base"
+                    style="@style/BigTextView_Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="4" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

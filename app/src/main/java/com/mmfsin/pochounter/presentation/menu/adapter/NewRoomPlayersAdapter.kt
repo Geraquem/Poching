@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.mmfsin.pochounter.R
 import com.mmfsin.pochounter.databinding.ItemAddPlayerBinding
@@ -35,6 +36,10 @@ class NewRoomPlayersAdapter(
         val player = players[position]
         holder.bind(player, position)
         holder.binding.ivDeletePlayer.setOnClickListener { listener.deletePlayer(position) }
+
+        holder.binding.etName.addTextChangedListener {
+            players[position] = it.toString()
+        }
     }
 
     override fun getItemCount(): Int = players.size

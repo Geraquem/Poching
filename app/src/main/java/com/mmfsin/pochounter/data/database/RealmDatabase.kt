@@ -1,6 +1,7 @@
 package com.mmfsin.pochounter.data.database
 
 import com.mmfsin.pochounter.domain.interfaces.IRealmDatabase
+import io.realm.kotlin.MutableRealm
 import io.realm.kotlin.Realm
 import io.realm.kotlin.query.RealmResults
 import io.realm.kotlin.types.RealmObject
@@ -43,4 +44,13 @@ class RealmDatabase(private val realm: Realm) : IRealmDatabase {
             delete(objects)
         }
     }
+
+    override suspend fun <R> write(block: MutableRealm.() -> R): R {
+        return realm.write(block)
+    }
+
+    override fun <R> writeBlocking(block: MutableRealm.() -> R): R {
+        return realm.writeBlocking(block)
+    }
+
 }
