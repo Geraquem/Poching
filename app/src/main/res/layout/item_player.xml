@@ -27,10 +27,11 @@
 
             <TextView
                 android:id="@+id/tv_name"
-                style="@style/BigTextView"
+                style="@style/BigTextView_Bold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/small"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/tv_points"
@@ -54,6 +55,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/medium_small"
             android:orientation="horizontal"
             android:weightSum="1">
 
@@ -144,6 +146,104 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="4" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:id="@+id/ll_points_ko_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@drawable/click_effect"
+                android:backgroundTint="@color/light_red"
+                android:elevation="@dimen/elevation"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/large"
+                android:paddingVertical="@dimen/small">
+
+                <TextView
+                    android:id="@+id/tv_points_ko_two"
+                    style="@style/BigTextView_Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="-4" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.05" />
+
+            <LinearLayout
+                android:id="@+id/ll_points_ok_extra_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@drawable/click_effect"
+                android:backgroundTint="@color/light_green"
+                android:elevation="@dimen/elevation"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/large"
+                android:paddingVertical="@dimen/small">
+
+                <TextView
+                    style="@style/BigTextView_Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/xxsmall"
+                    android:text="@string/room_points_plus" />
+
+                <TextView
+                    android:id="@+id/tv_points_ok_extra_two"
+                    style="@style/BigTextView_Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="6" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.05" />
+
+            <LinearLayout
+                android:id="@+id/ll_points_ok_base_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@drawable/click_effect"
+                android:backgroundTint="@color/light_green"
+                android:elevation="@dimen/elevation"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/large"
+                android:paddingVertical="@dimen/small">
+
+                <TextView
+                    style="@style/BigTextView_Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/xxsmall"
+                    android:text="@string/room_points_plus" />
+
+                <TextView
+                    android:id="@+id/tv_points_ok_base_two"
+                    style="@style/BigTextView_Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="8" />
 
             </LinearLayout>
 

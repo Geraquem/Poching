@@ -24,9 +24,14 @@ class PlayersAdapter(
             binding.apply {
                 tvName.text = player.name
                 tvPoints.text = "${player.points}"
+
                 tvPointsOkBase.text = "${points.pointsOkBase}"
                 tvPointsOkExtra.text = "${points.pointsOkExtra}"
                 tvPointsKo.text = "${points.pointsKo}"
+
+                tvPointsOkBaseTwo.text = "${points.pointsOkBase * 2}"
+                tvPointsOkExtraTwo.text = "${points.pointsOkExtra * 2}"
+                tvPointsKoTwo.text = "${points.pointsKo * 2}"
             }
         }
     }
@@ -44,19 +49,37 @@ class PlayersAdapter(
         holder.binding.llPointsOkBase.setOnClickListener {
             player.points += points.pointsOkBase
             notifyItemChanged(position)
-            listener.updatePoints(player.id, player.points)
+            listener.updatePoints(player.id, player.points, isError = false)
         }
 
         holder.binding.llPointsOkExtra.setOnClickListener {
             player.points += points.pointsOkExtra
             notifyItemChanged(position)
-            listener.updatePoints(player.id, player.points)
+            listener.updatePoints(player.id, player.points, isError = false)
         }
 
         holder.binding.llPointsKo.setOnClickListener {
             player.points += points.pointsKo
             notifyItemChanged(position)
-            listener.updatePoints(player.id, player.points)
+            listener.updatePoints(player.id, player.points, isError = true)
+        }
+
+        holder.binding.llPointsOkBaseTwo.setOnClickListener {
+            player.points += points.pointsOkBase * 2
+            notifyItemChanged(position)
+            listener.updatePoints(player.id, player.points, isError = false)
+        }
+
+        holder.binding.llPointsOkExtraTwo.setOnClickListener {
+            player.points += points.pointsOkExtra * 2
+            notifyItemChanged(position)
+            listener.updatePoints(player.id, player.points, isError = false)
+        }
+
+        holder.binding.llPointsKoTwo.setOnClickListener {
+            player.points += points.pointsKo * 2
+            notifyItemChanged(position)
+            listener.updatePoints(player.id, player.points, isError = true)
         }
     }
 

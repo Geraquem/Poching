@@ -1,6 +1,7 @@
 package com.mmfsin.pochounter.presentation.room
 
 import android.content.Context
+import android.media.SoundPool
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mmfsin.pochounter.R
 import com.mmfsin.pochounter.base.BaseFragment
 import com.mmfsin.pochounter.databinding.FragmentRoomBinding
 import com.mmfsin.pochounter.domain.models.Player
@@ -29,6 +31,10 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
 
     private var playersAdapter: PlayersAdapter? = null
 
+    private lateinit var soundPool: SoundPool
+    private var soundClickOk: Int = 0
+    private var soundClickKo: Int = 0
+
     override fun inflateView(
         inflater: LayoutInflater, container: ViewGroup?
     ) = FragmentRoomBinding.inflate(inflater, container, false)
@@ -44,6 +50,7 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
 
     override fun setUI() {
         binding.apply {}
+        getSounds()
     }
 
     override fun setListeners() {
@@ -62,6 +69,13 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
                 is RoomEvent.SWW -> error()
             }
         }
+    }
+
+
+    private fun getSounds() {
+        soundPool = SoundPool.Builder().setMaxStreams(1).build()
+        soundClickOk = soundPool.load(requireContext(), R.raw.pop, 1)
+        soundClickKo = soundPool.load(requireContext(), R.raw.error, 1)
     }
 
     private fun setUpRoomData(room: Room) {
@@ -87,7 +101,9 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
 //        playersAdapter?.addNewPlayer(player)
     }
 
-    override fun updatePoints(playerId: String, points: Int) {
+    override fun updatePoints(playerId: String, points: Int, isError: Boolean) {
+        val sound = if (isError) soundClickKo else soundClickOk
+        soundPool.play(sound, 1f, 1f, 0, 0, 1f)
         viewModel.updatePoints(playerId, points)
     }
 
@@ -96,5 +112,10 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        soundPool.release()
     }
 }
