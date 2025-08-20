@@ -33,4 +33,9 @@
     <string name="player_default">Jugador sin nombre</string>
     <string name="ready">Listo</string>
 
+    <string name="players_edit_name">Editar nombre</string>
+    <string name="players_points">Puntos:</string>
+    <string name="players_reset_points">Resetear puntos</string>
+    <string name="players_edit_accept">Aceptar</string>
+
 </resources>

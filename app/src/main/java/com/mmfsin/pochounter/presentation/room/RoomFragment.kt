@@ -15,9 +15,11 @@ import com.mmfsin.pochounter.databinding.FragmentRoomBinding
 import com.mmfsin.pochounter.domain.models.Player
 import com.mmfsin.pochounter.domain.models.Room
 import com.mmfsin.pochounter.presentation.room.adapter.PlayersAdapter
+import com.mmfsin.pochounter.presentation.room.dialogs.PlayerSettingsDialog
 import com.mmfsin.pochounter.presentation.room.interfaces.IPlayersListener
 import com.mmfsin.pochounter.utils.ROOM_ID
 import com.mmfsin.pochounter.utils.showErrorDialog
+import com.mmfsin.pochounter.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -55,7 +57,7 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
 
     override fun setListeners() {
         binding.apply {
-            btnAddPlayer.setOnClickListener {
+            toolbar.ivAdd.setOnClickListener {
 //                roomId?.let { id -> viewModel.addNewPlayer(id) }
             }
         }
@@ -66,6 +68,11 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
             when (event) {
                 is RoomEvent.GetRoom -> setUpRoomData(event.room)
                 is RoomEvent.NewPlayerAdded -> addNewPlayer(event.player)
+                is RoomEvent.UpdatedPlayerName -> playersAdapter?.updatePlayerName(
+                    event.newName, event.position
+                )
+
+                is RoomEvent.RestartedPlayerPoints -> playersAdapter?.restartPlayerPoints(event.position)
                 is RoomEvent.SWW -> error()
             }
         }
@@ -105,6 +112,14 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
         val sound = if (isError) soundClickKo else soundClickOk
         soundPool.play(sound, 1f, 1f, 0, 0, 1f)
         viewModel.updatePoints(playerId, points)
+    }
+
+    override fun playerSettings(playerId: String, name: String, position: Int) {
+        activity?.showFragmentDialog(
+            PlayerSettingsDialog(playerName = name,
+                editName = { newName -> viewModel.editPlayerName(playerId, newName, position) },
+                restartPoints = { viewModel.resetPoints(playerId, position) })
+        )
     }
 
     private fun error() = activity?.showErrorDialog()

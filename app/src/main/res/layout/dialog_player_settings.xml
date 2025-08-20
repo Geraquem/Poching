@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white_box"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_header_dialog"
+        android:backgroundTint="@color/light_green"
+        android:paddingVertical="8dp">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/content_description"
+            android:src="@drawable/ic_error"
+            android:visibility="invisible"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/et_name"
+            style="@style/BigTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/medium_small"
+            android:autofillHints="name"
+            android:background="@drawable/bg_white_box_border"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords"
+            android:maxLength="20"
+            android:padding="@dimen/medium_small"
+            android:singleLine="true"
+            tools:ignore="LabelFor"
+            tools:text="Paquito" />
+
+        <TextView
+            android:id="@+id/btn_edit_name"
+            style="@style/MediumTextView_Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/medium_small"
+            android:background="@drawable/click_effect"
+            android:backgroundTint="@color/light_green"
+            android:elevation="6dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="@string/players_edit_name"
+            android:textAllCaps="true" />
+
+        <TextView
+            android:id="@+id/btn_reset_points"
+            style="@style/MediumTextView_Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/click_effect"
+            android:backgroundTint="@color/light_blue"
+            android:elevation="6dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="@string/players_reset_points"
+            android:textAllCaps="true" />
+
+    </LinearLayout>
+
+</LinearLayout>

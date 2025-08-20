@@ -46,6 +46,10 @@ class PlayersAdapter(
         val player = players[position]
         holder.bind(player, points)
 
+        holder.binding.ivSettings.setOnClickListener {
+            listener.playerSettings(player.id, player.name, position)
+        }
+
         holder.binding.llPointsOkBase.setOnClickListener {
             player.points += points.pointsOkBase
             notifyItemChanged(position)
@@ -71,7 +75,7 @@ class PlayersAdapter(
         }
 
         holder.binding.llPointsOkExtraTwo.setOnClickListener {
-            player.points += points.pointsOkExtra * 2
+            player.points += points.pointsOkExtra * 3
             notifyItemChanged(position)
             listener.updatePoints(player.id, player.points, isError = false)
         }
@@ -84,6 +88,16 @@ class PlayersAdapter(
     }
 
     override fun getItemCount(): Int = players.size
+
+    fun updatePlayerName(newName: String, position: Int) {
+        players[position].name = newName
+        notifyItemChanged(position)
+    }
+
+    fun restartPlayerPoints(position: Int) {
+        players[position].points = 0
+        notifyItemChanged(position)
+    }
 
     fun addNewPlayer(player: Player) {
         players.add(player)

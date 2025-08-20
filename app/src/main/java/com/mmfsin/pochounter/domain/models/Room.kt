@@ -12,7 +12,7 @@ data class Room(
 data class Player(
     val id: String,
     val roomId: String,
-    val name: String,
+    var name: String,
     var points: Int,
 )
 

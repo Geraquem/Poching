@@ -3,6 +3,7 @@ package com.mmfsin.pochounter.presentation.room
 import com.mmfsin.pochounter.base.BaseViewModel
 import com.mmfsin.pochounter.domain.usecases.AddNewPlayerUseCase
 import com.mmfsin.pochounter.domain.usecases.GetRoomDataUseCase
+import com.mmfsin.pochounter.domain.usecases.UpdatePlayerNameUseCase
 import com.mmfsin.pochounter.domain.usecases.UpdatePlayerPointsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -11,7 +12,8 @@ import javax.inject.Inject
 class RoomViewModel @Inject constructor(
     private val getRoomDataUseCase: GetRoomDataUseCase,
     private val addNewPlayerUseCase: AddNewPlayerUseCase,
-    private val updatePoints: UpdatePlayerPointsUseCase
+    private val updatePlayerNameUseCase: UpdatePlayerNameUseCase,
+    private val updatePointsUseCase: UpdatePlayerPointsUseCase
 ) : BaseViewModel<RoomEvent>() {
 
     fun getRoomData(roomId: String) {
@@ -35,8 +37,24 @@ class RoomViewModel @Inject constructor(
 
     fun updatePoints(playerId: String, points: Int) {
         executeUseCase(
-            { updatePoints.execute(playerId, points) },
+            { updatePointsUseCase.execute(playerId, points) },
             { },
+            { _event.value = RoomEvent.SWW }
+        )
+    }
+
+    fun editPlayerName(playerId: String, newName: String, position: Int) {
+        executeUseCase(
+            { updatePlayerNameUseCase.execute(playerId, newName) },
+            { _event.value = RoomEvent.UpdatedPlayerName(newName, position) },
+            { _event.value = RoomEvent.SWW }
+        )
+    }
+
+    fun resetPoints(playerId: String, position: Int) {
+        executeUseCase(
+            { updatePointsUseCase.execute(playerId, 0) },
+            { _event.value = RoomEvent.RestartedPlayerPoints(position) },
             { _event.value = RoomEvent.SWW }
         )
     }
