@@ -4,19 +4,21 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmfsin.pochounter.R
 import com.mmfsin.pochounter.base.BaseFragment
 import com.mmfsin.pochounter.databinding.FragmentMenuBinding
 import com.mmfsin.pochounter.domain.models.Room
 import com.mmfsin.pochounter.presentation.main.MainActivity
-import com.mmfsin.pochounter.presentation.menu.MenuFragmentDirections.Companion.actionMenuFragmentToRoomFragment
 import com.mmfsin.pochounter.presentation.menu.adapter.RoomsAdapter
 import com.mmfsin.pochounter.presentation.menu.dialogs.CreateRoomDialog
 import com.mmfsin.pochounter.presentation.menu.dialogs.DeleteRoomDialog
 import com.mmfsin.pochounter.presentation.menu.interfaces.IRoomListener
+import com.mmfsin.pochounter.utils.animateY
+import com.mmfsin.pochounter.utils.countDown
+import com.mmfsin.pochounter.utils.showAlpha
 import com.mmfsin.pochounter.utils.showErrorDialog
 import com.mmfsin.pochounter.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +29,6 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
     override val viewModel: MenuViewModel by viewModels()
     private lateinit var mContext: Context
 
-    private var moveOn: Boolean = true
     private var roomsAdapter: RoomsAdapter? = null
 
     override fun inflateView(
@@ -40,7 +41,10 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
     }
 
     override fun setUI() {
-        binding.apply {}
+        binding.apply {
+            llTitle.animateY(-500f, 10) { llTitle.isVisible = true }
+            clBottom.animateY(500f, 10) { clBottom.isVisible = true }
+        }
     }
 
     override fun setListeners() {
@@ -79,14 +83,18 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
                 roomsAdapter = RoomsAdapter(rooms.toMutableList(), this@MenuFragment)
                 adapter = roomsAdapter
             }
-            checkRoomsCount()
+
+            countDown(500) {
+                llTitle.animateY(0f, 500)
+                clBottom.animateY(0f, 500) {
+                    rvRooms.showAlpha(true, 500)
+                    checkRoomsCount()
+                }
+            }
         }
     }
 
-    override fun clickRoom(roomId: String) {
-        moveOn = true
-        navigateToRoom(roomId)
-    }
+    override fun clickRoom(roomId: String) = navigateToRoom(roomId)
 
     override fun longClickRoom(roomId: String, position: Int) {
         activity?.showFragmentDialog(DeleteRoomDialog {
@@ -96,8 +104,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
 
     private fun navigateToRoom(roomId: String) {
         (activity as MainActivity).openBedRockActivity(
-            navGraph = R.navigation.nav_graph_room,
-            strArgs = roomId
+            navGraph = R.navigation.nav_graph_room, strArgs = roomId
         )
     }
 

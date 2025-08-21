@@ -32,9 +32,11 @@
         android:orientation="vertical"
         android:paddingTop="@dimen/xlarge"
         android:paddingBottom="@dimen/medium"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
 
         <TextView
             android:layout_width="wrap_content"
@@ -99,6 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/xxlarge"
         android:text="@string/no_rooms"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/cl_bottom"
         app:layout_constraintLeft_toLeftOf="@id/gl_left"
         app:layout_constraintRight_toRightOf="@id/gl_right"
@@ -110,6 +113,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginVertical="@dimen/large"
+        android:alpha="0"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/xxlarge"
@@ -117,6 +121,7 @@
         app:layout_constraintLeft_toLeftOf="@id/gl_left"
         app:layout_constraintRight_toRightOf="@id/gl_right"
         app:layout_constraintTop_toBottomOf="@id/ll_title"
+        tools:alpha="1"
         tools:itemCount="4"
         tools:listitem="@layout/item_room" />
 
@@ -126,9 +131,11 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_btn_new_room"
         android:elevation="10dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        tools:visibility="visible">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_left2"

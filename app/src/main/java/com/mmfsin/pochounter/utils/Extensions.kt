@@ -21,15 +21,15 @@ fun <T1 : Any, T2 : Any, R : Any> checkNotNulls(p1: T1?, p2: T2?, block: (T1, T2
     return if (p1 != null && p2 != null) block(p1, p2) else null
 }
 
-fun View.animateY(pos: Float, duration: Long) =
-    this.animate().translationY(pos).setDuration(duration)
+fun View.animateY(pos: Float, duration: Long, onEnd: () -> Unit = {}) =
+    this.animate().translationY(pos).setDuration(duration).withEndAction { onEnd() }
 
-fun View.animateX(pos: Float, duration: Long) =
-    this.animate().translationX(pos).setDuration(duration)
+fun View.animateX(pos: Float, duration: Long, onEnd: () -> Unit = {}) =
+    this.animate().translationX(pos).setDuration(duration).withEndAction { onEnd() }
 
-fun View.showAlpha(visible: Boolean, duration: Long) {
+fun View.showAlpha(visible: Boolean, duration: Long, onEnd: () -> Unit = {}) {
     val visibility = if (visible) 1f else 0f
-    this.animate().alpha(visibility).setDuration(duration)
+    this.animate().alpha(visibility).setDuration(duration).withEndAction { onEnd() }
 }
 
 fun countDown(millis: Long, action: () -> Unit) {
