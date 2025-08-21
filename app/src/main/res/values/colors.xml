@@ -20,4 +20,7 @@
     <color name="light_red">#FFC0C0</color>
     <color name="red">#FA3737</color>
 
+    <color name="light_orange">#FFECAA</color>
+    <color name="orange">#FFD883</color>
+
 </resources>

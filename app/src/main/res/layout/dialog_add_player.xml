@@ -14,15 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_header_dialog"
-        android:backgroundTint="@color/light_green"
+        android:backgroundTint="@color/orange"
         android:paddingVertical="8dp">
 
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+        <TextView
+            style="@style/MediumTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:contentDescription="@string/content_description"
-            android:src="@drawable/ic_error"
+            android:text="@string/add_player_title"
             android:visibility="invisible"
             app:tint="@color/white" />
 
@@ -35,14 +35,14 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/medium">
 
         <EditText
             android:id="@+id/et_name"
             style="@style/BigTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/medium_small"
+            android:layout_marginBottom="@dimen/medium"
             android:autofillHints="name"
             android:background="@drawable/bg_white_box_border"
             android:imeOptions="actionDone"
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/click_effect"
-            android:backgroundTint="@color/light_green"
+            android:backgroundTint="@color/orange"
             android:elevation="6dp"
             android:gravity="center"
             android:padding="12dp"

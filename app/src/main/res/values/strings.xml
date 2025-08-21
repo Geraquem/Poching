@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">pochounter</string>
+    <string name="app_name">Cuenta pochas</string>
+    <string name="app_name_one">Cuenta</string>
+    <string name="app_name_two">Pochas</string>
     <string name="content_description">image</string>
 
     <!-- ADS -->
@@ -26,9 +28,12 @@
     <string name="room_points_ok_extra">Por acierto extra:</string>
 
     <string name="room_delete_title">Borrar juego</string>
+    <string name="room_delete_description">Esto sirve para borrar el juego. Pulsa el botón <b>Borrar juego</b> si quieres, obviamente, borrar el juego. El juego se borrará.</string>
     <string name="room_delete_btn">Borrar</string>
 
     <string name="no_players">No hay jugadores</string>
+    <string name="no_rooms">Ni un mísero juego creado hay</string>
+    <string name="add_player_title">Ponle un nombre bien guapo</string>
     <string name="add_player">Añadir jugador</string>
     <string name="player_default">Jugador sin nombre</string>
     <string name="ready">Listo</string>

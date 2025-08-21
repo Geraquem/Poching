@@ -58,7 +58,7 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
 
     override fun setListeners() {
         binding.apply {
-            toolbar.ivAdd.setOnClickListener {
+            toolbar.btnAdd.setOnClickListener {
                 activity?.showFragmentDialog(
                     AddPlayerDialog { name ->
                         roomId?.let { id -> viewModel.addNewPlayer(roomId = id, playerName = name) }

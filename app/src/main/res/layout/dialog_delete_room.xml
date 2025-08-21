@@ -16,13 +16,13 @@
         android:backgroundTint="@color/light_red"
         android:paddingVertical="8dp">
 
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+        <TextView
+            style="@style/MediumTextView_Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:contentDescription="@string/content_description"
-            android:src="@drawable/ic_error"
-            android:visibility="invisible"
+            android:text="@string/room_delete_title"
+            android:textAllCaps="true"
             app:tint="@color/white" />
 
     </RelativeLayout>
@@ -38,13 +38,13 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/tv_title"
-            style="@style/MediumTextView_Bold"
+            style="@style/MediumTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="@dimen/medium"
-            android:text="@string/room_delete_title"
-            android:textAllCaps="true" />
+            android:gravity="center"
+            android:text="@string/room_delete_description" />
 
         <TextView
             android:id="@+id/btn_accept"

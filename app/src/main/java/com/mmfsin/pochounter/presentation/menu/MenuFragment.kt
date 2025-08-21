@@ -2,6 +2,7 @@ package com.mmfsin.pochounter.presentation.menu
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -59,7 +60,11 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
                     navigateToRoom(event.roomId)
                 }
 
-                is MenuEvent.RoomDeleted -> roomsAdapter?.removeItem(event.position)
+                is MenuEvent.RoomDeleted -> {
+                    roomsAdapter?.removeItem(event.position)
+                    checkRoomsCount()
+                }
+
                 is MenuEvent.SWW -> error()
             }
         }
@@ -72,6 +77,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
                 roomsAdapter = RoomsAdapter(rooms.toMutableList(), this@MenuFragment)
                 adapter = roomsAdapter
             }
+            checkRoomsCount()
         }
     }
 
@@ -87,10 +93,12 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
     }
 
     private fun navigateToRoom(roomId: String) {
-        if (moveOn) {
-            moveOn = false
             findNavController().navigate(actionMenuFragmentToRoomFragment(roomId))
-        }
+    }
+
+    private fun checkRoomsCount() {
+        val v = if (roomsAdapter?.itemCount == 0) View.VISIBLE else View.GONE
+        binding.tvNoRooms.visibility = v
     }
 
     private fun error() = activity?.showErrorDialog(goBack = true)

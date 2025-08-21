@@ -22,15 +22,47 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
 
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_btn_new_room"
+        android:elevation="@dimen/elevation"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/large"
+        android:paddingBottom="@dimen/large"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name_one"
+            android:textColor="@color/black"
+            android:textSize="32sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name_two"
+            android:textColor="@color/black"
+            android:textSize="32sp" />
+
+    </LinearLayout>
+
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tv_no_rooms"
+        style="@style/MediumTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/xxlarge"
-        android:text="pochounter"
+        android:text="@string/no_rooms"
+        app:layout_constraintBottom_toTopOf="@id/cl_bottom"
         app:layout_constraintLeft_toLeftOf="@id/gl_left"
         app:layout_constraintRight_toRightOf="@id/gl_right"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/ll_title" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_rooms"
@@ -40,10 +72,11 @@
         android:layout_marginVertical="@dimen/large"
         android:clipChildren="false"
         android:clipToPadding="false"
+        android:paddingBottom="@dimen/xxlarge"
         app:layout_constraintBottom_toTopOf="@id/cl_bottom"
         app:layout_constraintLeft_toLeftOf="@id/gl_left"
         app:layout_constraintRight_toRightOf="@id/gl_right"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/ll_title"
         tools:itemCount="4"
         tools:listitem="@layout/item_room" />
 
@@ -51,7 +84,8 @@
         android:id="@+id/cl_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/bg_btn_new_room"
+        android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
@@ -70,38 +104,25 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.95" />
 
-        <FrameLayout
-            android:id="@+id/separator"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/black"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
+        <TextView
             android:id="@+id/btn_create_room"
+            style="@style/MediumTextView_Bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="@dimen/medium"
-            android:layout_marginBottom="@dimen/large"
-            android:background="@drawable/click_effect_border"
+            android:layout_marginBottom="@dimen/medium"
+            android:background="@drawable/click_effect"
+            android:backgroundTint="@color/orange"
+            android:elevation="@dimen/elevation"
             android:gravity="center"
-            android:orientation="horizontal"
             android:padding="@dimen/medium_small"
+            android:text="@string/create_room"
+            android:textAllCaps="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/gl_left2"
             app:layout_constraintRight_toRightOf="@id/gl_right2"
-            app:layout_constraintTop_toBottomOf="@id/separator">
-
-            <TextView
-                style="@style/BigTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/create_room"
-                android:textAllCaps="true" />
-
-        </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
