@@ -158,7 +158,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/medium"
-            android:layout_marginBottom="@dimen/medium"
+            android:layout_marginBottom="@dimen/xlarge"
             android:background="@drawable/click_effect"
             android:backgroundTint="@color/orange"
             android:elevation="@dimen/elevation"

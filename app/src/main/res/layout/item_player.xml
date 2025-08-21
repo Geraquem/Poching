@@ -46,43 +46,46 @@
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/iv_settings"
+                app:layout_constraintRight_toLeftOf="@id/ll_points"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Paquito" />
 
-            <ImageView
-                android:id="@+id/iv_crown"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginStart="@dimen/medium_small"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/content_description"
-                android:src="@drawable/ic_crown"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/tv_name"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/dark_orange"
-                tools:visibility="visible" />
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/iv_crown"
-                app:layout_constraintRight_toLeftOf="@id/tv_points"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_points"
-                style="@style/BigTextView_Bold"
+            <LinearLayout
+                android:id="@+id/ll_points"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/xxsmall"
-                android:textSize="24sp"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="79" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_crown"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/medium_small"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/content_description"
+                    android:src="@drawable/ic_crown"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/tv_name"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/dark_orange"
+                    tools:visibility="visible" />
+
+
+                <TextView
+                    android:id="@+id/tv_points"
+                    style="@style/BigTextView_Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    tools:text="79" />
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

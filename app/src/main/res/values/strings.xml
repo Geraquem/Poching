@@ -19,7 +19,7 @@
     <!-- ROOMS -->
     <string name="room_name_title">Nombre del juego:</string>
     <string name="room_name">Nombre</string>
-    <string name="room_players_title">%s Jugadores:</string>
+    <string name="room_players_title">%s jugadores:</string>
     <string name="room_points_title">Puntos:</string>
     <string name="room_points_plus">+</string>
     <string name="room_points_minus">-</string>
@@ -38,6 +38,7 @@
     <string name="player_default">Jugador sin nombre</string>
     <string name="ready">Listo</string>
 
+    <string name="players_new_name_hint_add">Pulsa para añadir el nombre</string>
     <string name="players_new_name_hint">Nuevo jugador</string>
     <string name="players_new_name">Añadir jugador</string>
     <string name="players_edit_name">Editar nombre</string>

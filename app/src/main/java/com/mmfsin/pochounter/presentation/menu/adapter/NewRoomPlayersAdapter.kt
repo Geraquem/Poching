@@ -17,10 +17,10 @@ class NewRoomPlayersAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemAddPlayerBinding.bind(view)
-        val c: Context = binding.root.context
-        fun bind(name: String, position: Int) {
+        private val c: Context = binding.root.context
+        fun bind(position: Int) {
             binding.apply {
-                etName.setHint(name)
+                etName.setHint(c.getString(R.string.players_new_name_hint_add))
                 if (position == 0 || position == 1) ivDeletePlayer.visibility = View.GONE
             }
         }
@@ -33,8 +33,7 @@ class NewRoomPlayersAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val player = players[position]
-        holder.bind(player, position)
+        holder.bind(position)
         holder.binding.ivDeletePlayer.setOnClickListener { listener.deletePlayer(position) }
 
         holder.binding.etName.addTextChangedListener {

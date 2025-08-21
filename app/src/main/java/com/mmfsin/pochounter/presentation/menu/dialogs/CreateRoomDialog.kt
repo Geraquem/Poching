@@ -10,6 +10,7 @@ import com.mmfsin.pochounter.databinding.DialogCreateRoomBinding
 import com.mmfsin.pochounter.domain.models.Points
 import com.mmfsin.pochounter.presentation.menu.adapter.NewRoomPlayersAdapter
 import com.mmfsin.pochounter.presentation.menu.interfaces.INewPlayerListener
+import com.mmfsin.pochounter.utils.getRandomFunnyWord
 
 class CreateRoomDialog(
     private val create: (roomName: String, points: Points, players: List<String>) -> Unit
@@ -39,13 +40,13 @@ class CreateRoomDialog(
             etPointsOkBase.setText("4")
             etPointsOkExtra.setText("2")
             etPointsBad.setText("-2")
-    }
+        }
     }
 
     override fun setListeners() {
         binding.apply {
             llAddPlayer.setOnClickListener {
-                playersAdapter?.addNewPlayer("Jugador ${playersAdapter?.itemCount?.plus(1)}")
+                playersAdapter?.addNewPlayer(getRandomFunnyWord())
                 setPlayersCount()
             }
 
@@ -58,7 +59,7 @@ class CreateRoomDialog(
 
     private fun setPlayers() {
         binding.apply {
-            val initialPlayers = mutableListOf("Jugador 1", "Jugador 2")
+            val initialPlayers = mutableListOf("", "")
             rvPlayers.apply {
                 layoutManager = LinearLayoutManager(activity?.applicationContext)
                 playersAdapter = NewRoomPlayersAdapter(initialPlayers, this@CreateRoomDialog)
