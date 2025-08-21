@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmfsin.pochounter.R
 import com.mmfsin.pochounter.base.BaseFragment
+import com.mmfsin.pochounter.base.bedrock.BedRockActivity
 import com.mmfsin.pochounter.databinding.FragmentRoomBinding
 import com.mmfsin.pochounter.domain.models.Player
 import com.mmfsin.pochounter.domain.models.Room
@@ -18,7 +19,7 @@ import com.mmfsin.pochounter.presentation.room.adapter.PlayersAdapter
 import com.mmfsin.pochounter.presentation.room.dialogs.AddPlayerDialog
 import com.mmfsin.pochounter.presentation.room.dialogs.PlayerSettingsDialog
 import com.mmfsin.pochounter.presentation.room.interfaces.IPlayersListener
-import com.mmfsin.pochounter.utils.ROOM_ID
+import com.mmfsin.pochounter.utils.BEDROCK_STR_ARGS
 import com.mmfsin.pochounter.utils.showErrorDialog
 import com.mmfsin.pochounter.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +44,8 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
     ) = FragmentRoomBinding.inflate(inflater, container, false)
 
     override fun getBundleArgs() {
-        roomId = arguments?.getString(ROOM_ID)
+        roomId = activity?.intent?.getStringExtra(BEDROCK_STR_ARGS)
+//        roomId = arguments?.getString(ROOM_ID)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,18 +58,6 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
         getSounds()
     }
 
-    override fun setListeners() {
-        binding.apply {
-            toolbar.btnAdd.setOnClickListener {
-                activity?.showFragmentDialog(
-                    AddPlayerDialog { name ->
-                        roomId?.let { id -> viewModel.addNewPlayer(roomId = id, playerName = name) }
-                    }
-                )
-            }
-        }
-    }
-
     override fun observe() {
         viewModel.event.observe(this) { event ->
             when (event) {
@@ -78,7 +68,11 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
                 )
 
                 is RoomEvent.RestartedPlayerPoints -> playersAdapter?.restartPlayerPoints(event.position)
-                is RoomEvent.PlayerDeleted -> playersAdapter?.removePlayer(event.position)
+                is RoomEvent.PlayerDeleted -> {
+                    playersAdapter?.removePlayer(event.position)
+                    checkPlayersCount()
+                }
+
                 is RoomEvent.SWW -> error()
             }
         }
@@ -93,25 +87,32 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
 
     private fun setUpRoomData(room: Room) {
         binding.apply {
-            toolbar.apply {
-                tvTitle.text = room.name
-                ivBack.setOnClickListener { activity?.onBackPressedDispatcher?.onBackPressed() }
-            }
+            setUpToolbar(room.name)
 
             if (room.totalPlayers == 0) tvNoPlayers.isVisible = true
-            else {
-                players = room.players.toMutableList()
-                rvPlayers.apply {
-                    layoutManager = LinearLayoutManager(activity?.applicationContext)
-                    playersAdapter = PlayersAdapter(players, room.points, this@RoomFragment)
-                    adapter = playersAdapter
-                }
+            players = room.players.toMutableList()
+            rvPlayers.apply {
+                layoutManager = LinearLayoutManager(activity?.applicationContext)
+                playersAdapter = PlayersAdapter(players, room.points, this@RoomFragment)
+                adapter = playersAdapter
             }
         }
     }
 
+    private fun setUpToolbar(roomName: String) {
+        (activity as BedRockActivity).setUpToolbar(
+            title = roomName,
+            action = {
+                activity?.showFragmentDialog(AddPlayerDialog { name ->
+                    roomId?.let { id -> viewModel.addNewPlayer(roomId = id, playerName = name) }
+                })
+            })
+    }
+
     private fun newPlayerAdded(player: Player) {
         playersAdapter?.addNewPlayer(player)
+        checkPlayersCount()
+        if (playersAdapter?.itemCount == 1) roomId?.let { id -> viewModel.getRoomData(id) }
     }
 
     override fun updatePoints(playerId: String, points: Int, isError: Boolean) {
@@ -127,6 +128,11 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
                 restartPoints = { viewModel.resetPoints(playerId, position) },
                 deletePlayer = { viewModel.deletePlayer(playerId, position) })
         )
+    }
+
+    private fun checkPlayersCount() {
+        val v = if (playersAdapter?.itemCount == 0) View.VISIBLE else View.GONE
+        binding.tvNoPlayers.visibility = v
     }
 
     private fun error() = activity?.showErrorDialog()

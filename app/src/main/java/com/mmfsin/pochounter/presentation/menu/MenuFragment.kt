@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mmfsin.pochounter.R
 import com.mmfsin.pochounter.base.BaseFragment
 import com.mmfsin.pochounter.databinding.FragmentMenuBinding
 import com.mmfsin.pochounter.domain.models.Room
+import com.mmfsin.pochounter.presentation.main.MainActivity
 import com.mmfsin.pochounter.presentation.menu.MenuFragmentDirections.Companion.actionMenuFragmentToRoomFragment
 import com.mmfsin.pochounter.presentation.menu.adapter.RoomsAdapter
 import com.mmfsin.pochounter.presentation.menu.dialogs.CreateRoomDialog
@@ -93,7 +95,10 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>(), IRoomLi
     }
 
     private fun navigateToRoom(roomId: String) {
-            findNavController().navigate(actionMenuFragmentToRoomFragment(roomId))
+        (activity as MainActivity).openBedRockActivity(
+            navGraph = R.navigation.nav_graph_room,
+            strArgs = roomId
+        )
     }
 
     private fun checkRoomsCount() {

@@ -22,7 +22,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ll_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -30,8 +30,8 @@
         android:elevation="@dimen/elevation"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingTop="@dimen/large"
-        android:paddingBottom="@dimen/large"
+        android:paddingTop="@dimen/xlarge"
+        android:paddingBottom="@dimen/medium"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -39,18 +39,58 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:fontFamily="@font/title"
             android:text="@string/app_name_one"
+            android:textAllCaps="true"
+            android:textColor="@color/orange"
+            android:textSize="42sp"
+            app:layout_constraintLeft_toLeftOf="@id/title_one"
+            app:layout_constraintRight_toRightOf="@id/title_one"
+            app:layout_constraintTop_toTopOf="@id/title_one" />
+
+        <TextView
+            android:id="@+id/title_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/title"
+            android:text="@string/app_name_one"
+            android:textAllCaps="true"
             android:textColor="@color/black"
-            android:textSize="32sp" />
+            android:textSize="42sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:fontFamily="@font/title"
             android:text="@string/app_name_two"
-            android:textColor="@color/black"
-            android:textSize="32sp" />
+            android:textAllCaps="true"
+            android:textColor="@color/orange"
+            android:textSize="42sp"
+            app:layout_constraintLeft_toLeftOf="@id/title_two"
+            app:layout_constraintRight_toRightOf="@id/title_two"
+            app:layout_constraintTop_toTopOf="@id/title_two" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/title_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/title"
+            android:text="@string/app_name_two"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="42sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_one" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tv_no_rooms"

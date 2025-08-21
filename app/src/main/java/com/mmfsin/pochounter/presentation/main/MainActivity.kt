@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
 
         //true == dark
         WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
-
     }
 
     fun openBedRockActivity(

@@ -8,13 +8,6 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_bedrock"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_left"
         android:layout_width="wrap_content"
@@ -38,9 +31,10 @@
         android:gravity="center"
         android:text="@string/no_players"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/gl_left"
         app:layout_constraintRight_toRightOf="@id/gl_right"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -48,14 +42,14 @@
         style="@style/scroll_no_effects"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/medium"
         android:clipChildren="false"
         android:clipToPadding="false"
+        android:paddingTop="@dimen/medium"
         android:paddingBottom="@dimen/xxlarge"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/gl_left"
         app:layout_constraintRight_toRightOf="@id/gl_right"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="3"
         tools:listitem="@layout/item_player" />
 
