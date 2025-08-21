@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import com.mmfsin.pochounter.R
 import com.mmfsin.pochounter.base.BaseDialog
 import com.mmfsin.pochounter.databinding.DialogAddPlayerBinding
+import com.mmfsin.pochounter.utils.getRandomFunnyWord
 
 class AddPlayerDialog(private val accept: (name: String) -> Unit) :
     BaseDialog<DialogAddPlayerBinding>() {
@@ -22,7 +23,7 @@ class AddPlayerDialog(private val accept: (name: String) -> Unit) :
     override fun setListeners() {
         binding.apply {
             btnAdd.setOnClickListener {
-                accept(etName.text.toString())
+                accept(etName.text.toString().ifBlank { getRandomFunnyWord() })
                 dismiss()
             }
         }

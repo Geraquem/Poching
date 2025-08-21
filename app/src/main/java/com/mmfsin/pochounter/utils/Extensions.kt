@@ -58,3 +58,29 @@ fun formatList(items: List<String>): String {
         else -> items.dropLast(1).joinToString(", ") + " y " + items.last()
     }
 }
+
+fun getRandomFunnyWord(): String {
+    val words = listOf(
+        "Zanahorílope",
+        "Chirimbolo",
+        "Tortugón",
+        "Piruletasco",
+        "Gusanitoide",
+        "Burbujóptero",
+        "Ñoñifante",
+        "Patatús",
+        "Tragaldabas",
+        "Chupatintas",
+        "Papanatas",
+        "Ratonóptero",
+        "Pelusín",
+        "Cachivachete",
+        "Mofletudo",
+        "Lombricóptero",
+        "Zampabollos",
+        "Chicharrónix",
+        "Tiquismiquis",
+        "Gorilóptero"
+    )
+    return words.random()
+}
