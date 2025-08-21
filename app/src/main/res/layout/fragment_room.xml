@@ -53,4 +53,27 @@
         tools:itemCount="3"
         tools:listitem="@layout/item_player" />
 
+    <RelativeLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_btn_new_room"
+        android:backgroundTint="@color/white"
+        android:elevation="@dimen/elevation"
+        android:paddingHorizontal="@dimen/large"
+        android:paddingVertical="@dimen/medium"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/tv_result"
+            style="@style/MediumTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="@dimen/medium_small"
+            android:gravity="center"
+            android:text="@string/players_winner" />
+
+    </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

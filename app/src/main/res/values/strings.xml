@@ -45,4 +45,5 @@
     <string name="players_reset_points">Resetear puntos</string>
     <string name="players_delete">Eliminar jugador</string>
 
+    <string name="players_winner">Ganando: %s</string>
 </resources>

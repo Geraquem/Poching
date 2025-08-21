@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.mmfsin.pochounter.R
 import com.mmfsin.pochounter.databinding.ItemPlayerBinding
@@ -32,6 +33,8 @@ class PlayersAdapter(
                 tvPointsOkBaseTwo.text = "${points.pointsOkBase * 2}"
                 tvPointsOkExtraTwo.text = "${points.pointsOkExtra * 3}"
                 tvPointsKoTwo.text = "${points.pointsKo * 2}"
+
+                ivCrown.isVisible = player.winner
             }
         }
     }
@@ -109,6 +112,16 @@ class PlayersAdapter(
             players.removeAt(position)
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, players.size)
+        }
+    }
+
+    fun getPlayers(): List<Player> = players
+
+    fun updateWinner(playersId: List<String>) {
+        players.forEachIndexed { index, player ->
+            val wasWinner = player.winner
+            player.winner = player.id in playersId
+            if (wasWinner != player.winner) notifyItemChanged(index)
         }
     }
 }

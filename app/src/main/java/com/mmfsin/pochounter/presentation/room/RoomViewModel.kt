@@ -40,7 +40,7 @@ class RoomViewModel @Inject constructor(
     fun updatePoints(playerId: String, points: Int) {
         executeUseCase(
             { updatePointsUseCase.execute(playerId, points) },
-            { },
+            { _event.value = RoomEvent.UpdateResult },
             { _event.value = RoomEvent.SWW }
         )
     }

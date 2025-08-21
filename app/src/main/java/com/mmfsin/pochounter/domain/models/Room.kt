@@ -14,6 +14,7 @@ data class Player(
     val roomId: String,
     var name: String,
     var points: Int,
+    var winner: Boolean = false,
 )
 
 data class Points(

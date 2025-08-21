@@ -20,6 +20,7 @@ import com.mmfsin.pochounter.presentation.room.dialogs.AddPlayerDialog
 import com.mmfsin.pochounter.presentation.room.dialogs.PlayerSettingsDialog
 import com.mmfsin.pochounter.presentation.room.interfaces.IPlayersListener
 import com.mmfsin.pochounter.utils.BEDROCK_STR_ARGS
+import com.mmfsin.pochounter.utils.formatList
 import com.mmfsin.pochounter.utils.showErrorDialog
 import com.mmfsin.pochounter.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -73,6 +74,7 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
                     checkPlayersCount()
                 }
 
+                is RoomEvent.UpdateResult -> updateResult()
                 is RoomEvent.SWW -> error()
             }
         }
@@ -96,17 +98,16 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
                 playersAdapter = PlayersAdapter(players, room.points, this@RoomFragment)
                 adapter = playersAdapter
             }
+            updateResult()
         }
     }
 
     private fun setUpToolbar(roomName: String) {
-        (activity as BedRockActivity).setUpToolbar(
-            title = roomName,
-            action = {
-                activity?.showFragmentDialog(AddPlayerDialog { name ->
-                    roomId?.let { id -> viewModel.addNewPlayer(roomId = id, playerName = name) }
-                })
+        (activity as BedRockActivity).setUpToolbar(title = roomName, action = {
+            activity?.showFragmentDialog(AddPlayerDialog { name ->
+                roomId?.let { id -> viewModel.addNewPlayer(roomId = id, playerName = name) }
             })
+        })
     }
 
     private fun newPlayerAdded(player: Player) {
@@ -133,6 +134,23 @@ class RoomFragment : BaseFragment<FragmentRoomBinding, RoomViewModel>(), IPlayer
     private fun checkPlayersCount() {
         val v = if (playersAdapter?.itemCount == 0) View.VISIBLE else View.GONE
         binding.tvNoPlayers.visibility = v
+        updateResult()
+    }
+
+    private fun updateResult() {
+        val players = playersAdapter?.getPlayers()
+
+        players?.let {
+            val maxPoints = players.maxByOrNull { it.points }?.points
+            val winners = players.filter { it.points == maxPoints }
+
+            val text = if (winners.size == 1) winners.first().name
+            else formatList(winners.map { it.name })
+
+            binding.tvResult.text = getString(R.string.players_winner, text)
+
+            playersAdapter?.updateWinner(winners.map { it.id })
+        }
     }
 
     private fun error() = activity?.showErrorDialog()
